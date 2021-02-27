@@ -1,1 +1,105 @@
 /* developer styles go here */
+
+body {
+    font-family: sans-serif;
+
+}
+
+header {
+    max-width: 58rem;
+    margin: 0 auto;
+
+}
+
+/* Step 1: style all the meny u links showing in the smallest scareen */
+/* Text styling does on the <a> tag to overwrite the browser styles. Layout styles go on the <li> elements */
+
+ul.menu {
+    background-color: #191919;
+
+}
+
+ul.menu a {
+    color: #f5f5f5;
+    text-decoration: underline;
+    text-transform: uppercase;
+    /* expand the clickable/tap area to fil the entire li, vs just the text itself */
+    display: block;
+    padding: 1rem;
+}
+
+ul.menu a:hover,
+ul.menu a:active {
+    background-color: #262626;
+    border-radius: 5px;
+}
+
+ul.dropdown-menu {
+    padding: 0 1rem;
+}
+
+ul.dropdown-menu a {
+    text-decoration: none;
+}
+
+/* step 2 layout the links for the larger screen, style everything and then hide the second level nav */
+
+@media only screen and (min-width: 40em) {
+    ul.menu {
+        display: flex;
+        flex-wrap: wrap;
+
+    }
+
+    ul.menu li {
+        /* flex-grow: 1;
+        flex-shrink: 0;
+        flex-basis: auto; */
+        flex: 1 0 auto;
+        /* forces the text to stay on one line, cannot wrap */
+        white-space: nowrap;
+        text-align: center;
+
+        position: relative;
+    }
+
+    
+    /* step 3: positions/style and hide the dropdown menu */
+    
+    /* remove the indent we wanted for the mobile screen */
+    ul.dropdown-menu {
+        padding: 0;
+        position: absolute;
+        background-color: #191919;
+        border-radius: 0 0 5px 5px;
+        left: 0;
+        /* display none is bad for screen readers, not an accessible menu */
+        /* display: none; */
+        visibility: hidden;
+        opacity: 0;
+
+        transition: all 0.5s ease;
+    }
+
+    /* step 4: create a hover state that wil show this menu */
+    /* when hovering over the main lu, the dropdown will show */
+    ul.menu li:hover > ul {
+        /* display: block; */
+        visibility: visible;
+        opacity: 1;
+    }
+
+    /* step 5 add accesiblity with the :focus-within state on the li's which will target the anchar tags inside*/
+    /* hhtps://webaim.org/techniques/keyboard/ */
+    ul.menu li:focus-within > ul,
+    ul.menu li > ul:focus {
+        visibility: visible;
+        opacity: 1;
+        display: block;
+    }
+
+    /* step6 add transition to the changing dropdown menu to9 show/hide it smoothly */
+    /* see ul.dropdown-menu above */
+
+
+}
